@@ -1,0 +1,16 @@
+[
+  {
+    "company": "Example Company",
+    "role": "Software Engineering Intern",
+    "deadline": "2026-10-15",
+    "status": "not_started",
+    "link": "https://example.com/internship-application"
+  },
+  {
+    "company": "Another Example Company",
+    "role": "Product Intern",
+    "deadline": null,
+    "status": "not_started",
+    "link": "https://example.com/product-internship"
+  }
+]
