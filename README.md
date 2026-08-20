@@ -82,25 +82,18 @@ Internship application deadline summary
 
 The repo includes `run_tracker.ps1`, which runs `tracker.py` and saves logs in a local `logs` folder.
 
-To schedule it weekly, open PowerShell and replace `<PATH_TO_REPO>` with the folder path where this repo is stored:
+To schedule it weekly, open PowerShell from the project root and run:
 
 ```powershell
-$repoPath = "<PATH_TO_REPO>"
+.\setup_scheduled_task.ps1
+```
 
-$action = New-ScheduledTaskAction `
-  -Execute "powershell.exe" `
-  -Argument "-ExecutionPolicy Bypass -File `"$repoPath\run_tracker.ps1`""
+By default, this creates a task named `InternshipTrackerWeekly` that runs every Monday at 9:00 AM.
 
-$trigger = New-ScheduledTaskTrigger `
-  -Weekly `
-  -DaysOfWeek Monday `
-  -At 9am
+To choose a different day or time:
 
-Register-ScheduledTask `
-  -TaskName "InternshipTrackerWeekly" `
-  -Action $action `
-  -Trigger $trigger `
-  -Description "Send weekly internship deadline summary email"
+```powershell
+.\setup_scheduled_task.ps1 -DaysOfWeek Friday -At "4:00 PM"
 ```
 
 Test the scheduled task:
@@ -110,6 +103,8 @@ Start-ScheduledTask -TaskName "InternshipTrackerWeekly"
 ```
 
 If your project uses a specific Python executable, set `INTERNSHIP_TRACKER_PYTHON` before running the task or update `run_tracker.ps1` to point to that interpreter.
+
+The scheduled task is configured to start after a missed run, wake the computer if Windows allows wake timers, and run while on battery. It cannot run if the computer is fully shut down.
 
 ## Notes
 
